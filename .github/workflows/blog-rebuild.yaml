@@ -10,4 +10,4 @@ jobs:
       - name: webhook
         env:
           WEBHOOK: ${{ secrets.BLOG_BUILD_WEBHOOK }}
-        run: curl -X POST $WEBHOOk
+        run: curl -X POST $WEBHOOK
