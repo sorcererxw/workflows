@@ -1,0 +1,12 @@
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        env:
+          WEBHOOK: ${{ secrets.BLOG_BUILD_WEBHOOK }}
+        run: curl -X POST $WEBHOOk
