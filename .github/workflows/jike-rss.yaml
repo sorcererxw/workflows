@@ -1,0 +1,26 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  solidot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        run: curl -X GET https://jike-rss.vercel.app/job/solidot
+  meme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        run: curl -X GET https://jike-rss.vercel.app/job/meme
+  programmerhumor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        run: curl -X GET https://jike-rss.vercel.app/job/programmer_humor
+  yearprogress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        run: curl -X GET https://jike-rss.vercel.app/job/year_progress
