@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"net/http"
+	urlpkg "net/url"
 	"sync"
 	"time"
 )
@@ -39,17 +40,38 @@ func run(ctx context.Context) error {
 		g.Add(1)
 		go func() {
 			defer g.Done()
-			req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+			uri, err := urlpkg.Parse(url)
+			if err != nil {
+				fmt.Printf("failed to parse url: %s, %v\n", url, err)
+				return
+			}
+
+			req, err := http.NewRequestWithContext(
+				ctx,
+				http.MethodGet,
+				"https://sorcererxw.com/api/revalidate",
+				nil,
+			)
 			if err != nil {
 				fmt.Printf("failed to create request: %s\n", err)
 				return
 			}
+			{
+				q := uri.Query()
+				q.Add("path", uri.Path)
+				req.URL.RawQuery = q.Encode()
+			}
+			fmt.Println(req.URL.String())
 			resp, err := http.DefaultClient.Do(req)
 			if err != nil {
 				fmt.Printf("failed to do request: %s\n", err)
 				return
 			}
 			defer resp.Body.Close()
+			if resp.StatusCode != http.StatusOK {
+				fmt.Printf("failed to revalidate: %s\n", resp.Status)
+				return
+			}
 		}()
 	}
 
