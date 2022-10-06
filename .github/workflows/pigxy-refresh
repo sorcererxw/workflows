@@ -1,0 +1,11 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: webhook
+        run: curl -X GET https://pigxy.sorcererxw.com/api/cron/refresh_source_cache
