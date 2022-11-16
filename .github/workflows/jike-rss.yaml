@@ -4,9 +4,8 @@ on:
     - cron: '* * * * *'
 
 jobs:
-  run-job:
+  refresh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
-      - run: go run ./cmd/jike-rss
+      - name: webhook
+        run: curl -X GET https://api-beta.sorcererxw.com/job/refresh_jike_rss
