@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: webhook
-        run: curl -X GET https://api-beta.sorcererxw.com/job/refresh_jike_rss
+        run: curl -X GET https://api.sorcererxw.com/job/refresh_jike_rss
